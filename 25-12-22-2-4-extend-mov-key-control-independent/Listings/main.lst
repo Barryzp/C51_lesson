@@ -1,0 +1,79 @@
+C51 COMPILER V9.54   MAIN                                                                  12/22/2025 16:11:54 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\Program Files\Keil C51\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H> 
+   2          #include <INTRINS.H>
+   3          
+   4          void delay1ms()   //@11.0592MHz
+   5          {
+   6   1        unsigned char i, j;
+   7   1        _nop_();
+   8   1        i = 2;
+   9   1        j = 199;
+  10   1        do
+  11   1        {
+  12   2          while (--j);
+  13   2        } while (--i);
+  14   1      }
+  15          
+  16          void delay_for_ms(unsigned int ms){
+  17   1        int i = 0;
+  18   1        for(i = 0; i < ms; i++){
+  19   2          delay1ms();
+  20   2        }
+  21   1      }
+  22          
+  23          void main(void){
+  24   1        unsigned char LED_num = 0;
+  25   1        
+  26   1        P2 = 0xFE;
+  27   1        
+  28   1        while(1){
+  29   2          if(P3_0 == 0){
+  30   3            // 按键消抖
+  31   3            delay_for_ms(20);
+  32   3            while(P3_0 == 0);
+  33   3            // 按键消抖
+  34   3            delay_for_ms(20);
+  35   3            
+  36   3            LED_num++;
+  37   3            if(LED_num >= 8) LED_num = 0;
+  38   3            P2 = ~(0x01 << LED_num);
+  39   3          }
+  40   2          
+  41   2          if(P3_1 == 0){
+  42   3            // 按键消抖
+  43   3            delay_for_ms(20);
+  44   3            while(P3_1 == 0);
+  45   3            // 按键消抖
+  46   3            delay_for_ms(20);
+  47   3            
+  48   3            if(LED_num <= 0) LED_num = 8;
+  49   3            LED_num--;
+  50   3            P2 = ~(0x01 << LED_num);
+  51   3          }
+  52   2        }
+  53   1      }
+
+C51 COMPILER V9.54   MAIN                                                                  12/22/2025 16:11:54 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    116    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

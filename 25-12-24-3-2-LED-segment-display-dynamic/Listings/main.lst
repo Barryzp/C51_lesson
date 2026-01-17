@@ -1,0 +1,211 @@
+C51 COMPILER V9.54   MAIN                                                                  01/14/2026 16:58:58 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\Program Files\Keil C51\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H> 
+   2          #include <INTRINS.H>
+   3          void delay1ms()   //@11.0592MHz
+   4          {
+   5   1        unsigned char i, j;
+   6   1        _nop_();
+   7   1        i = 2;
+   8   1        j = 199;
+   9   1        do
+  10   1        {
+  11   2          while (--j);
+  12   2        } while (--i);
+  13   1      }
+  14          
+  15          void delay_for_ms(unsigned int ms){
+  16   1        int i = 0;
+  17   1        for(i = 0; i < ms; i++){
+  18   2          delay1ms();
+  19   2        }
+  20   1      }
+  21          
+  22          void num0_display(){
+  23   1          // 显示0就是a,b,c,d,e,f位亮0011 1111
+  24   1          P0 = 0x3F;
+  25   1      }
+  26          
+  27          void num1_display(){
+  28   1          // 显示1就是b, c位亮0000 0110
+  29   1          P0 = 0x06;
+  30   1      }
+  31          
+  32          void num2_display(){
+  33   1          // 显示2就是a,b,g,e,g位亮0101 1011
+  34   1          P0 = 0x5B;
+  35   1      }
+  36          
+  37          void num3_display(){
+  38   1          // 显示3就是a,b,c,d,g,位亮0100 1111
+  39   1          P0 = 0x4F;
+  40   1      }
+  41          
+  42          void num4_display(){
+  43   1          // 显示4就是b,c,f,g位亮0110 0110
+  44   1          P0 = 0x66;
+  45   1      }
+  46          
+  47          void num5_display(){
+  48   1          // 显示5就是a,c,d,f,g位亮0110 1101
+  49   1          P0 = 0x6D;
+  50   1      }
+  51          
+  52          void num6_display(){
+  53   1          // 显示6就是a,c,d,e,f,g位亮0111 1101
+  54   1          P0 = 0x7D;
+C51 COMPILER V9.54   MAIN                                                                  01/14/2026 16:58:58 PAGE 2   
+
+  55   1      }
+  56          
+  57          void num7_display(){
+  58   1          // 显示7就是a,b,c位亮0000 0111
+  59   1          P0 = 0x07;
+  60   1      }
+  61          
+  62          void num8_display(){
+  63   1          // 显示8就是a,b,c,d,e,f,g位亮0111 1111
+  64   1          P0 = 0x7F;
+  65   1      }
+  66          
+  67          void num9_display(){
+  68   1          // 显示9就是a,b,c,d,f,g位亮0110 1111
+  69   1          P0 = 0x6F;
+  70   1      }
+  71          
+  72          void show_num_unit(unsigned char num){
+  73   1          if(num == 0){
+  74   2            num0_display();
+  75   2          }else if(num == 1){
+  76   2            num1_display();
+  77   2          }else if(num == 2){
+  78   2            num2_display();
+  79   2          }else if(num == 3){
+  80   2            num3_display();
+  81   2          }else if(num == 4){
+  82   2            num4_display();
+  83   2          }else if(num == 5){
+  84   2            num5_display();
+  85   2          }else if(num == 6){
+  86   2            num6_display();
+  87   2          }else if(num == 7){
+  88   2            num7_display();
+  89   2          }else if(num == 8){
+  90   2            num8_display();
+  91   2          }else if(num == 9){
+  92   2            num9_display();
+  93   2          }
+  94   1      }
+  95          
+  96          // 选择哪个数码管，从右到左1，2，3，4，...
+  97          void show_led_1(){
+  98   1          P2_4 = 0;
+  99   1          P2_3 = 0;
+ 100   1          P2_2 = 0;
+ 101   1      }
+ 102          
+ 103          void show_led_2(){
+ 104   1          P2_4 = 0;
+ 105   1          P2_3 = 0;
+ 106   1          P2_2 = 1;
+ 107   1      }
+ 108          
+ 109          void show_led_3(){
+ 110   1          P2_4 = 0;
+ 111   1          P2_3 = 1;
+ 112   1          P2_2 = 0;
+ 113   1      }
+ 114          
+ 115          void show_led_4(){
+ 116   1          P2_4 = 0;
+C51 COMPILER V9.54   MAIN                                                                  01/14/2026 16:58:58 PAGE 3   
+
+ 117   1          P2_3 = 1;
+ 118   1          P2_2 = 1;
+ 119   1      }
+ 120          
+ 121          void show_led_5(){
+ 122   1          P2_4 = 1;
+ 123   1          P2_3 = 0;
+ 124   1          P2_2 = 0;
+ 125   1      }
+ 126          
+ 127          void show_led_6(){
+ 128   1          P2_4 = 1;
+ 129   1          P2_3 = 0;
+ 130   1          P2_2 = 1;
+ 131   1      }
+ 132          void show_led_7(){
+ 133   1          P2_4 = 1;
+ 134   1          P2_3 = 1;
+ 135   1          P2_2 = 0;
+ 136   1      }
+ 137          
+ 138          void show_led_8(){
+ 139   1          P2_4 = 1;
+ 140   1          P2_3 = 1;
+ 141   1          P2_2 = 1;
+ 142   1      }
+ 143          
+ 144          void choose_num_pos(unsigned char pos){
+ 145   1        if(pos == 1){
+ 146   2          show_led_1();
+ 147   2        }else if(pos == 2){
+ 148   2          show_led_2();
+ 149   2        }else if(pos == 3){
+ 150   2          show_led_3();
+ 151   2        }else if(pos == 4){
+ 152   2          show_led_4();
+ 153   2        }else if(pos == 5){
+ 154   2          show_led_5();
+ 155   2        }else if(pos == 6){
+ 156   2          show_led_6();
+ 157   2        }else if(pos == 7){
+ 158   2          show_led_7();
+ 159   2        }else if(pos == 8){
+ 160   2          show_led_8();
+ 161   2        }
+ 162   1      }
+ 163          
+ 164          void main(void){
+ 165   1        
+ 166   1        // 段选线-选择哪个管亮，通过38译码器
+ 167   1        // 我想要第7个数码管亮，那么对应二进制为110(从0开始)
+ 168   1        // 这是共阴极，那么就是需要高电平接通
+ 169   1        
+ 170   1        unsigned char i = 0;
+ 171   1        unsigned char j = 0;
+ 172   1        while(1){
+ 173   2          for(j=0; j<8; j++){
+ 174   3            choose_num_pos(j+1);
+ 175   3            for(i=0; i<=9; i++){
+ 176   4                show_num_unit(i);
+ 177   4                delay_for_ms(500);
+ 178   4            }
+C51 COMPILER V9.54   MAIN                                                                  01/14/2026 16:58:58 PAGE 4   
+
+ 179   3          }
+ 180   2        }
+ 181   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    282    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
