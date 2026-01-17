@@ -1,0 +1,265 @@
+C51 COMPILER V9.54   MAIN                                                                  01/17/2026 11:02:25 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H> 
+   2          #include <INTRINS.H>
+   3          void delay1ms()   //@11.0592MHz
+   4          {
+   5   1        unsigned char i, j;
+   6   1        _nop_();
+   7   1        i = 2;
+   8   1        j = 199;
+   9   1        do
+  10   1        {
+  11   2          while (--j);
+  12   2        } while (--i);
+  13   1      }
+  14          
+  15          void delay_for_ms(unsigned long ms){
+  16   1        unsigned long i = 0;
+  17   1        for(i = 0; i < ms; i++){
+  18   2          delay1ms();
+  19   2        }
+  20   1      }
+  21          
+  22          void num0_display(){
+  23   1          // ��ʾ0����a,b,c,d,e,fλ��0011 1111
+  24   1          P0 = 0x3F;
+  25   1      }
+  26          
+  27          void num1_display(){
+  28   1          // ��ʾ1����b, cλ��0000 0110
+  29   1          P0 = 0x06;
+  30   1      }
+  31          
+  32          void num2_display(){
+  33   1          // ��ʾ2����a,b,g,e,gλ��0101 1011
+  34   1          P0 = 0x5B;
+  35   1      }
+  36          
+  37          void num3_display(){
+  38   1          // ��ʾ3����a,b,c,d,g,λ��0100 1111
+  39   1          P0 = 0x4F;
+  40   1      }
+  41          
+  42          void num4_display(){
+  43   1          // ��ʾ4����b,c,f,gλ��0110 0110
+  44   1          P0 = 0x66;
+  45   1      }
+  46          
+  47          void num5_display(){
+  48   1          // ��ʾ5����a,c,d,f,gλ��0110 1101
+  49   1          P0 = 0x6D;
+  50   1      }
+  51          
+  52          void num6_display(){
+  53   1          // ��ʾ6����a,c,d,e,f,gλ��0111 1101
+  54   1          P0 = 0x7D;
+C51 COMPILER V9.54   MAIN                                                                  01/17/2026 11:02:25 PAGE 2   
+
+  55   1      }
+  56          
+  57          void num7_display(){
+  58   1          // ��ʾ7����a,b,cλ��0000 0111
+  59   1          P0 = 0x07;
+  60   1      }
+  61          
+  62          void num8_display(){
+  63   1          // ��ʾ8����a,b,c,d,e,f,gλ��0111 1111
+  64   1          P0 = 0x7F;
+  65   1      }
+  66          
+  67          void num9_display(){
+  68   1          // ��ʾ9����a,b,c,d,f,gλ��0110 1111
+  69   1          P0 = 0x6F;
+  70   1      }
+  71          
+  72          void show_num_unit(unsigned char num){
+  73   1          if(num == 0){
+  74   2            num0_display();
+  75   2          }else if(num == 1){
+  76   2            num1_display();
+  77   2          }else if(num == 2){
+  78   2            num2_display();
+  79   2          }else if(num == 3){
+  80   2            num3_display();
+  81   2          }else if(num == 4){
+  82   2            num4_display();
+  83   2          }else if(num == 5){
+  84   2            num5_display();
+  85   2          }else if(num == 6){
+  86   2            num6_display();
+  87   2          }else if(num == 7){
+  88   2            num7_display();
+  89   2          }else if(num == 8){
+  90   2            num8_display();
+  91   2          }else if(num == 9){
+  92   2            num9_display();
+  93   2          }
+  94   1      }
+  95          
+  96          void show_led_1(){
+  97   1          P2_4 = 0;
+  98   1          P2_3 = 0;
+  99   1          P2_2 = 0;
+ 100   1      }
+ 101          
+ 102          void show_led_2(){
+ 103   1          P2_4 = 0;
+ 104   1          P2_3 = 0;
+ 105   1          P2_2 = 1;
+ 106   1      }
+ 107          
+ 108          void show_led_3(){
+ 109   1          P2_4 = 0;
+ 110   1          P2_3 = 1;
+ 111   1          P2_2 = 0;
+ 112   1      }
+ 113          
+ 114          void show_led_4(){
+ 115   1          P2_4 = 0;
+ 116   1          P2_3 = 1;
+C51 COMPILER V9.54   MAIN                                                                  01/17/2026 11:02:25 PAGE 3   
+
+ 117   1          P2_2 = 1;
+ 118   1      }
+ 119          
+ 120          void show_led_5(){
+ 121   1          P2_4 = 1;
+ 122   1          P2_3 = 0;
+ 123   1          P2_2 = 0;
+ 124   1      }
+ 125          
+ 126          void show_led_6(){
+ 127   1          P2_4 = 1;
+ 128   1          P2_3 = 0;
+ 129   1          P2_2 = 1;
+ 130   1      }
+ 131          void show_led_7(){
+ 132   1          P2_4 = 1;
+ 133   1          P2_3 = 1;
+ 134   1          P2_2 = 0;
+ 135   1      }
+ 136          
+ 137          void show_led_8(){
+ 138   1          P2_4 = 1;
+ 139   1          P2_3 = 1;
+ 140   1          P2_2 = 1;
+ 141   1      }
+ 142          
+ 143          void choose_num_pos(unsigned char pos){
+ 144   1        if(pos == 1){
+ 145   2          show_led_1();
+ 146   2        }else if(pos == 2){
+ 147   2          show_led_2();
+ 148   2        }else if(pos == 3){
+ 149   2          show_led_3();
+ 150   2        }else if(pos == 4){
+ 151   2          show_led_4();
+ 152   2        }else if(pos == 5){
+ 153   2          show_led_5();
+ 154   2        }else if(pos == 6){
+ 155   2          show_led_6();
+ 156   2        }else if(pos == 7){
+ 157   2          show_led_7();
+ 158   2        }else if(pos == 8){
+ 159   2          show_led_8();
+ 160   2        }
+ 161   1      }
+ 162          
+ 163          void show_pos_num(unsigned char pos, unsigned char num){
+ 164   1        choose_num_pos(pos);
+ 165   1        show_num_unit(num);
+ 166   1        delay1ms();   // 增加显示时间
+ 167   1        
+ 168   1        P0=0x00;    // 每位都要清空，防止显示混乱
+ 169   1      }
+ 170          
+ 171          unsigned char get_number_digits(unsigned long number){
+ 172   1        unsigned char count = 0;
+ 173   1        if(number == 0) return 0;
+ 174   1        
+ 175   1        while(number != 0){
+ 176   2          number = number / 10;
+ 177   2          count++;
+ 178   2        }
+C51 COMPILER V9.54   MAIN                                                                  01/17/2026 11:02:25 PAGE 4   
+
+ 179   1        return count;
+ 180   1      }
+ 181          
+ 182          void show_num_range(unsigned long number){
+ 183   1        
+ 184   1        unsigned char digit_num = get_number_digits(number);
+ 185   1        unsigned long integer = 0;
+ 186   1        unsigned long number_temp = 0;
+ 187   1        unsigned char remainder = 0;
+ 188   1        unsigned char i = 0;
+ 189   1        unsigned char j = 0;
+ 190   1        
+ 191   1        if(digit_num == 0) return;
+ 192   1        
+ 193   1        // 扫描10次每一位数字，让人眼能看清每一位
+ 194   1        for(j = 0; j < 10; j++){
+ 195   2          number_temp = number;
+ 196   2          for(i=0; i<digit_num; i++){
+ 197   3            remainder = number_temp % 10;
+ 198   3            integer = number_temp / 10;
+ 199   3            number_temp = integer;
+ 200   3            show_pos_num(i+1, remainder);
+ 201   3          }
+ 202   2        }
+ 203   1      }
+ 204          
+ 205          void main(void){
+ 206   1        unsigned long counter = 0;
+ 207   1        unsigned char display_buf[8] = {0, 0, 0, 0, 0, 0, 0, 0};  // 显示缓冲区
+ 208   1        unsigned long temp_num = 0;
+ 209   1        unsigned char i = 0;
+ 210   1        unsigned int scan_count = 0;
+ 211   1        
+ 212   1        while(1){
+ 213   2          // 每500次扫描更新一次数字（扫描周期固定，更新间隔固定）
+ 214   2          if(scan_count >= 10){
+ 215   3            scan_count = 0;
+ 216   3            counter++;
+ 217   3            
+ 218   3            // 将数字分解到缓冲区（从右到左，即个位到高位）
+ 219   3            temp_num = counter;
+ 220   3            for(i = 0; i < 8; i++){
+ 221   4              display_buf[i] = temp_num % 10;
+ 222   4              temp_num = temp_num / 10;
+ 223   4            }
+ 224   3          }
+ 225   2          
+ 226   2          // 固定显示8位，保证扫描时间恒定
+ 227   2          for(i = 0; i < 8; i++){
+ 228   3            show_pos_num(i+1, display_buf[i]);
+ 229   3          }
+ 230   2          
+ 231   2          scan_count++;
+ 232   2        }
+ 233   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    718    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.54   MAIN                                                                  01/17/2026 11:02:25 PAGE 5   
+
+   DATA SIZE        =   ----      48
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

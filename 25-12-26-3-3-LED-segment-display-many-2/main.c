@@ -20,57 +20,56 @@ void delay_for_ms(unsigned long ms){
 }
 
 void num0_display(){
-		// ÏÔÊ¾0¾ÍÊÇa,b,c,d,e,fÎ»ÁÁ0011 1111
+		// ï¿½ï¿½Ê¾0ï¿½ï¿½ï¿½ï¿½a,b,c,d,e,fÎ»ï¿½ï¿½0011 1111
 		P0 = 0x3F;
 }
 
 void num1_display(){
-		// ÏÔÊ¾1¾ÍÊÇb, cÎ»ÁÁ0000 0110
+		// ï¿½ï¿½Ê¾1ï¿½ï¿½ï¿½ï¿½b, cÎ»ï¿½ï¿½0000 0110
 		P0 = 0x06;
 }
 
 void num2_display(){
-		// ÏÔÊ¾2¾ÍÊÇa,b,g,e,gÎ»ÁÁ0101 1011
+		// ï¿½ï¿½Ê¾2ï¿½ï¿½ï¿½ï¿½a,b,g,e,gÎ»ï¿½ï¿½0101 1011
 		P0 = 0x5B;
 }
 
 void num3_display(){
-		// ÏÔÊ¾3¾ÍÊÇa,b,c,d,g,Î»ÁÁ0100 1111
+		// ï¿½ï¿½Ê¾3ï¿½ï¿½ï¿½ï¿½a,b,c,d,g,Î»ï¿½ï¿½0100 1111
 		P0 = 0x4F;
 }
 
 void num4_display(){
-		// ÏÔÊ¾4¾ÍÊÇb,c,f,gÎ»ÁÁ0110 0110
+		// ï¿½ï¿½Ê¾4ï¿½ï¿½ï¿½ï¿½b,c,f,gÎ»ï¿½ï¿½0110 0110
 		P0 = 0x66;
 }
 
 void num5_display(){
-		// ÏÔÊ¾5¾ÍÊÇa,c,d,f,gÎ»ÁÁ0110 1101
+		// ï¿½ï¿½Ê¾5ï¿½ï¿½ï¿½ï¿½a,c,d,f,gÎ»ï¿½ï¿½0110 1101
 		P0 = 0x6D;
 }
 
 void num6_display(){
-		// ÏÔÊ¾6¾ÍÊÇa,c,d,e,f,gÎ»ÁÁ0111 1101
+		// ï¿½ï¿½Ê¾6ï¿½ï¿½ï¿½ï¿½a,c,d,e,f,gÎ»ï¿½ï¿½0111 1101
 		P0 = 0x7D;
 }
 
 void num7_display(){
-		// ÏÔÊ¾7¾ÍÊÇa,b,cÎ»ÁÁ0000 0111
+		// ï¿½ï¿½Ê¾7ï¿½ï¿½ï¿½ï¿½a,b,cÎ»ï¿½ï¿½0000 0111
 		P0 = 0x07;
 }
 
 void num8_display(){
-		// ÏÔÊ¾8¾ÍÊÇa,b,c,d,e,f,gÎ»ÁÁ0111 1111
+		// ï¿½ï¿½Ê¾8ï¿½ï¿½ï¿½ï¿½a,b,c,d,e,f,gÎ»ï¿½ï¿½0111 1111
 		P0 = 0x7F;
 }
 
 void num9_display(){
-		// ÏÔÊ¾9¾ÍÊÇa,b,c,d,f,gÎ»ÁÁ0110 1111
+		// ï¿½ï¿½Ê¾9ï¿½ï¿½ï¿½ï¿½a,b,c,d,f,gÎ»ï¿½ï¿½0110 1111
 		P0 = 0x6F;
 }
 
 void show_num_unit(unsigned char num){
-	// ÊÇ·ñ¿ÉÒÔÓÅ»¯ÄØ£¿switch-caseÓï¾ä
 		if(num == 0){
 			num0_display();
 		}else if(num == 1){
@@ -94,7 +93,6 @@ void show_num_unit(unsigned char num){
 		}
 }
 
-// Ñ¡ÔñÄÄ¸öÊıÂë¹Ü£¬´ÓÓÒµ½×ó1£¬2£¬3£¬4£¬...
 void show_led_1(){
 		P2_4 = 0;
 		P2_3 = 0;
@@ -162,13 +160,12 @@ void choose_num_pos(unsigned char pos){
 	}
 }
 
-void show_pos_num(unsigned char pos, unsigned char num, unsigned char final_digit){
+void show_pos_num(unsigned char pos, unsigned char num){
 	choose_num_pos(pos);
 	show_num_unit(num);
-	delay1ms();
+	delay1ms();		// å¢åŠ æ˜¾ç¤ºæ—¶é—´
 	
-	// ÎªÊ²Ã´ÒªËµÇå³ş
-	if(final_digit != 1) P0=0x00;
+	P0=0x00;		// æ¯ä½éƒ½è¦æ¸…ç©ºï¼Œé˜²æ­¢æ˜¾ç¤ºæ··ä¹±
 }
 
 unsigned char get_number_digits(unsigned long number){
@@ -182,31 +179,55 @@ unsigned char get_number_digits(unsigned long number){
 	return count;
 }
 
-// Ö»ÏÔÊ¾·¶Î§ÄÚµÄÊı(0 - 9999 9999)
 void show_num_range(unsigned long number){
 	
-	// ÅĞ¶ÏÊÇ¼¸Î»Êı£¬È»ºóÖğ¸öÏÔÊ¾
 	unsigned char digit_num = get_number_digits(number);
 	unsigned long integer = 0;
+	unsigned long number_temp = 0;
 	unsigned char remainder = 0;
 	unsigned char i = 0;
+	unsigned char j = 0;
 	
 	if(digit_num == 0) return;
 	
-	for(i=0; i<digit_num; i++){
-		remainder = number % 10;
-		integer = number / 10;
-		number = integer;
-		show_pos_num(i+1, remainder, (i==digit_num-1)?1:0);
+	// æ‰«æ10æ¬¡æ¯ä¸€ä½æ•°å­—ï¼Œè®©äººçœ¼èƒ½çœ‹æ¸…æ¯ä¸€ä½
+	for(j = 0; j < 10; j++){
+		number_temp = number;
+		for(i=0; i<digit_num; i++){
+			remainder = number_temp % 10;
+			integer = number_temp / 10;
+			number_temp = integer;
+			show_pos_num(i+1, remainder);
+		}
 	}
 }
 
 void main(void){
-	
 	unsigned long counter = 0;
+	unsigned char display_buf[8] = {0, 0, 0, 0, 0, 0, 0, 0};	// æ˜¾ç¤ºç¼“å†²åŒº
+	unsigned long temp_num = 0;
+	unsigned char i = 0;
+	unsigned int scan_count = 0;
+	
 	while(1){
-		show_num_range(counter);
-		counter++;
-		delay_for_ms(100);
+		// æ¯10æ¬¡æ‰«ææ›´æ–°ä¸€æ¬¡æ•°å­—ï¼ˆæ‰«æå‘¨æœŸå›ºå®šï¼Œæ›´æ–°é—´éš”å›ºå®šï¼‰
+		if(scan_count >= 10){
+			scan_count = 0;
+			counter++;
+			
+			// å°†æ•°å­—åˆ†è§£åˆ°ç¼“å†²åŒºï¼ˆä»å³åˆ°å·¦ï¼Œå³ä¸ªä½åˆ°é«˜ä½ï¼‰
+			temp_num = counter;
+			for(i = 0; i < 8; i++){
+				display_buf[i] = temp_num % 10;
+				temp_num = temp_num / 10;
+			}
+		}
+		
+		// å›ºå®šæ˜¾ç¤º8ä½ï¼Œä¿è¯æ‰«ææ—¶é—´æ’å®š
+		for(i = 0; i < 8; i++){
+			show_pos_num(i+1, display_buf[i]);
+		}
+		
+		scan_count++;
 	}
 }
