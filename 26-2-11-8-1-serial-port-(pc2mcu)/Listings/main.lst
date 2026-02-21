@@ -1,0 +1,100 @@
+C51 COMPILER V9.54   MAIN                                                                  01/25/2026 11:07:07 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include <INTRINS.H>
+   3          #include "LCD1602.h"
+   4          #include "independent_key.h"
+   5          
+   6          
+   7          static unsigned int led_mod = 0;
+   8          
+   9          static unsigned char t_hour = 23;
+  10          static unsigned char t_min = 59;
+  11          static unsigned char t_sec = 58;
+  12          
+  13          
+  14          void timer0_init(void) // 1000微秒@11.0592MHz
+  15          {
+  16   1          // AUXR |= 0x80;    //定时器时钟1T模式
+  17   1          TMOD &= 0xF0; // 设置定时器模式
+  18   1          TL0 = 0xCD;   // 设置定时初值
+  19   1          TH0 = 0xD4;   // 设置定时初值
+  20   1          TF0 = 0;      // 清除TF0标志
+  21   1          TR0 = 1;      // 定时器0开始计时
+  22   1      
+  23   1          // 中断设置
+  24   1          ET0 = 1; // 使能定时器0中断
+  25   1          EA = 1;  // 使能总中断
+  26   1      
+  27   1          // 配置优先级，目前只有一个中断源可以不写，默认最低级0，为了完整还是�
+             -�上
+  28   1          PT0 = 0; // 定时器0中断优先级低
+  29   1      }
+  30          
+  31          void main() {
+  32   1      
+  33   1          LCD_Init();
+  34   1          timer0_init(); // 初始化定时器0
+  35   1          LCD_ShowString(1, 1, "Time:");
+  36   1        LCD_ShowString(2, 1, "  :  :");
+  37   1          while (1)
+  38   1          {
+  39   2              LCD_ShowNum(2, 1, t_hour, 2);
+  40   2              LCD_ShowNum(2, 4, t_min, 2);
+  41   2              LCD_ShowNum(2, 7, t_sec, 2);
+  42   2          }
+  43   1      }
+  44          
+  45          void timer0_isr(void) interrupt 1
+  46          {
+  47   1          static unsigned int t_count = 0;
+  48   1      
+  49   1          // 重新装载定时初值
+  50   1          TL0 = 0xCD; // 设置定时初值
+  51   1          TH0 = 0xD4; // 设置定时初值
+  52   1      
+  53   1          t_count++;
+C51 COMPILER V9.54   MAIN                                                                  01/25/2026 11:07:07 PAGE 2   
+
+  54   1          if (t_count >= 1000) // 500ms到达
+  55   1          {
+  56   2              t_count = 0;
+  57   2              t_sec++;
+  58   2              if (t_sec >= 60)
+  59   2              {
+  60   3                  t_sec = 0;
+  61   3                  t_min++;
+  62   3                  if (t_min >= 60)
+  63   3                  {
+  64   4                      t_min = 0;
+  65   4                      t_hour++;
+  66   4                      if (t_hour >= 24)
+  67   4                      {
+  68   5                          t_hour = 0;
+  69   5                      }
+  70   4                  }
+  71   3              }
+  72   2          }
+  73   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    170    ----
+   CONSTANT SIZE    =     13    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      7    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

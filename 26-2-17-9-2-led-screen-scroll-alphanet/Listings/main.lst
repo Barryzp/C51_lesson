@@ -1,0 +1,65 @@
+C51 COMPILER V9.54   MAIN                                                                  02/17/2026 23:29:35 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include "lcd_screen.h"
+   2          
+   3          unsigned char ani[] = {
+   4              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+   5              0xFF,0x7C,0x1C,0x08,0xFF,0x7F,0x00,0xFF,
+   6              0x5B,0x49,0xC9,0xC9,0x00,0xFC,0x07,0x1E,
+   7              0x1C,0x07,0xFE,0x98,0x00,0xFF,0x41,0x4D,
+   8              0x4D,0x7F,0x00,0x7F,0x43,0x43,0x42,0x42,
+   9              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  10              0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+  11          };
+  12          
+  13          void main() {
+  14   1          unsigned char i, offset = 0, counter = 0;
+  15   1      
+  16   1          matrix_led_init(); // 初始化LED矩阵
+  17   1      
+  18   1          while (1) {
+  19   2              // // 显示前面部分
+  20   2              // matrix_led_show_column(0, ani[0]); // Show pattern 0x3C on column 0
+  21   2              // matrix_led_show_column(1, ani[1]); // Show pattern 0x42 on column 1
+  22   2              // matrix_led_show_column(2, ani[2]); // Show pattern 0xA5 on column 2
+  23   2              // matrix_led_show_column(3, ani[3]); // Show pattern 0x
+  24   2              // matrix_led_show_column(4, ani[4]); // Show pattern 0xA5 on column 4
+  25   2              // matrix_led_show_column(5, ani[5]); // Show pattern 0x
+  26   2              // matrix_led_show_column(6, ani[6]); // Show pattern 0x42 on column 6
+  27   2              // matrix_led_show_column(7, ani[7]); // Show pattern 0x3C on column 7
+  28   2              for (i = 0; i < 8; i++) {
+  29   3                  matrix_led_show_column(i, ani[offset + i]);
+  30   3              }
+  31   2      
+  32   2              counter++;
+  33   2              if (counter > 10) { // 每10次刷新后滚动一次
+  34   3                  counter = 0;
+  35   3                  offset++;
+  36   3                  if (offset > 48) { // 当偏移超过动画数组长度时重置
+  37   4                      offset = 0;
+  38   4                  }
+  39   3              }
+  40   2          }
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     56       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,74 @@
+C51 COMPILER V9.54   LCD_SCREEN                                                            02/17/2026 23:13:37 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LCD_SCREEN
+OBJECT MODULE PLACED IN .\Objects\lcd_screen.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE lcd_screen.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\lcd_screen.lst) TABS(2) OBJECT(.\Objects\lcd_screen.obj)
+
+line level    source
+
+   1          #include "lcd_screen.h"
+   2          
+   3          // 演示如何将一个字节的数据写入74HC595移位寄存器
+   4          void test_write_byte_74595(unsigned char byte) {
+   5   1          SER&=0x80; //取第8位数据，并将SER的其他位清零，非0即1
+   6   1          SCK = 1; //上升沿将数据移入74HC595的移位寄存器
+   7   1          SCK = 0; //下降沿准备下一位数据的输入
+   8   1      
+   9   1          // 继续移次高位就是第7位数据，依次类推
+  10   1          SER&=0x40; //取第7位数据，并将SER的其他位清零，非0即1
+  11   1          SCK = 1; //上升沿将数据移入74HC595的移位寄存器
+  12   1          SCK = 0; //下降沿准备下一位数据的输入
+  13   1      
+  14   1          // 继续移次高位就是第6位数据，依次类推
+  15   1          // ... 
+  16   1      }
+*** WARNING C280 IN LINE 4 OF lcd_screen.c: 'byte': unreferenced local variable
+  17          
+  18          void matrix_led_init(){
+  19   1        // 初始化74HC595的控制引脚
+  20   1        SCK = 0; // 初始化移位时钟为低电平
+  21   1        RCK = 0; // 初始化锁存时钟为低电平
+  22   1        SER = 0; // 初始化串行数据输入为低电平
+  23   1      }
+  24          
+  25          void write_byte_74595(unsigned char byte) {
+  26   1          unsigned char i;
+  27   1          for (i = 0; i < 8; i++) {
+  28   2              SER = (byte >> (7 - i)) & 0x01; // 取当前位数据，并将SER的其他位清零，非0即1，�
+             -��码等价于SER = (byte & (0x80 >> i)) ? 1 : 0;
+  29   2              SCK = 1; // 上升沿将数据移入74HC595的移位寄存器
+  30   2              SCK = 0; // 下降沿准备下一位数据的输入
+  31   2          }
+  32   1          RCK = 1; // 锁存数据到输出端
+  33   1          RCK = 0; // 准备下一次数据输入
+  34   1      }
+  35          
+  36          // 显示一个字节的数据在LED矩阵的指定列上
+  37          // column: 0-7,从左到右依次对应LED矩阵的列, byte: 8位数据，每位对应LED矩阵的一行�
+             -��1表示点亮，0表示熄灭
+  38          void matrix_led_show_column(unsigned char column, unsigned char byte){
+  39   1          write_byte_74595(byte); // 将行数据写入74HC595, data是关键字，不能用作变量名
+  40   1          LED_MATRIX_PORT = ~(0x80 >> column); // 选择当前列，其他列保持高电平,因为74HC595的输
+             -出是低电平有效
+  41   1      
+  42   1          delay_for_ms(1); // 延时，保持显示稳定
+  43   1          LED_MATRIX_PORT = 0xFF; // 清除显示，准备下一次显示
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     99    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.54   LCD_SCREEN                                                            02/17/2026 23:13:37 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

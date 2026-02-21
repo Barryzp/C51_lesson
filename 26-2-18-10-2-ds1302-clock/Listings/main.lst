@@ -1,0 +1,300 @@
+C51 COMPILER V9.54   MAIN                                                                  02/21/2026 23:38:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include <INTRINS.H>
+   3          #include "LCD1602.h"
+   4          #include "ds1302.h"
+   5          #include "independent_key.h"
+   6          #include "timer0.h"
+   7          
+   8          unsigned char key_value = 0, mode = 0; // mode: 0-正常显示，1-设置年，2-设置月，3-设置日�
+             -�4-设置时，5-设置分，6-设置秒
+   9          unsigned char time_setting_index = 0;  // 0-年，1-月，2-日，3-时，4-分，5-秒
+  10          unsigned char date_ani_flag = 0;       // 时间设置的动画标志
+  11          
+  12          void Refresh_Time()
+  13          {
+  14   1          LCD_ShowNum(1, 1, date_time[0], 2);
+  15   1          LCD_ShowNum(1, 4, date_time[1], 2);
+  16   1          LCD_ShowNum(1, 7, date_time[2], 2);
+  17   1          LCD_ShowNum(2, 1, date_time[3], 2);
+  18   1          LCD_ShowNum(2, 4, date_time[4], 2);
+  19   1          LCD_ShowNum(2, 7, date_time[5], 2);
+  20   1      }
+  21          
+  22          void Show_Time()
+  23          {
+  24   1          DS1302_Get_Time();
+  25   1          Refresh_Time();
+  26   1      }
+  27          
+  28          unsigned char Get_Max_Day()
+  29          {
+  30   1          unsigned char max_day;
+  31   1          // 判断闰年和不同月份的天数
+  32   1          unsigned char month = date_time[1];
+  33   1          unsigned char year = date_time[0] + 2000; // 假设年份是2000年以后的两位数
+  34   1          if (month == 2)                           // 二月
+  35   1          {
+  36   2              if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) // 闰年
+  37   2              {
+  38   3                  max_day = 29;
+  39   3              }
+  40   2              else
+  41   2              {
+  42   3                  max_day = 28;
+  43   3              }
+  44   2          }
+  45   1          else if (month == 4 || month == 6 || month == 9 || month == 11) // 小月
+  46   1          {
+  47   2              max_day = 30;
+  48   2          }
+  49   1          else // 大月
+  50   1          {
+  51   2              max_day = 31;
+  52   2          }
+  53   1          return max_day;
+C51 COMPILER V9.54   MAIN                                                                  02/21/2026 23:38:42 PAGE 2   
+
+  54   1      }
+  55          
+  56          void Time_Set(unsigned char operation)
+  57          {
+  58   1          unsigned char temp, month, year, max_day;
+  59   1          switch (time_setting_index)
+  60   1          {
+  61   2          case 0:
+  62   2              temp = date_time[0];         // 保存当前设置项的值，万一用户设置过程中按错了
+             -需要恢复
+  63   2              operation ? temp++ : temp--; // 根据操作类型增加或减少
+  64   2              if (temp > 99)
+  65   2              {
+  66   3                  if (temp == 255)
+  67   3                      temp = 99; // 因为temp是unsigned char，所以当它小于0时会变成255
+  68   3                  else
+  69   3                      temp = 0;
+  70   3              }
+  71   2              date_time[0] = temp; // 更新设置项的值
+  72   2              break;
+  73   2          case 1:
+  74   2              temp = date_time[1];
+  75   2              operation ? temp++ : temp--;
+  76   2              if (temp > 12)
+  77   2                  temp = 1;
+  78   2              if (temp < 1)
+  79   2                  temp = 12;
+  80   2              date_time[1] = temp;
+  81   2              break;
+  82   2          case 2:
+  83   2              temp = date_time[2];
+  84   2              max_day = Get_Max_Day();
+  85   2      
+  86   2              if (operation)
+  87   2              {
+  88   3                  temp++;
+  89   3                  if (temp > max_day)
+  90   3                  {
+  91   4                      temp = 1;
+  92   4                  }
+  93   3              }else{
+  94   3                  if (temp == 1)
+  95   3                  {
+  96   4                      temp = max_day;
+  97   4                  }else temp--;
+  98   3              }
+  99   2              date_time[2] = temp;
+ 100   2              break;
+ 101   2          case 3:
+ 102   2              temp = date_time[3];
+ 103   2              operation ? temp++ : temp--;
+ 104   2              if (temp > 23)
+ 105   2                  temp = 0;
+ 106   2              if (temp < 0)
+ 107   2                  temp = 23;
+ 108   2              date_time[3] = temp;
+ 109   2              break;
+ 110   2          case 4:
+ 111   2              temp = date_time[4];
+ 112   2              operation ? temp++ : temp--;
+ 113   2              if (temp > 59)
+ 114   2                  temp = 0;
+C51 COMPILER V9.54   MAIN                                                                  02/21/2026 23:38:42 PAGE 3   
+
+ 115   2              if (temp < 0)
+ 116   2                  temp = 59;
+ 117   2              date_time[4] = temp;
+ 118   2              break;
+ 119   2          case 5:
+ 120   2              temp = date_time[5];
+ 121   2              operation ? temp++ : temp--;
+ 122   2              if (temp > 59)
+ 123   2                  temp = 0;
+ 124   2              if (temp < 0)
+ 125   2                  temp = 59;
+ 126   2              date_time[5] = temp;
+ 127   2              break;
+ 128   2          default:
+ 129   2              break;
+ 130   2          }
+ 131   1      
+ 132   1          // 最后判断设置了月份和年份时每个月的最大天数，避免用户设置了不合法的
+             -日期
+ 133   1          // 判断闰年和不同月份的天数
+ 134   1          month = date_time[1];
+ 135   1          year = date_time[0] + 2000; // 假设年份是2000年以后的两位数
+ 136   1          if (month == 2)             // 二月
+ 137   1          {
+ 138   2              if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) // 闰年
+ 139   2              {
+ 140   3                  max_day = 29;
+ 141   3              }
+ 142   2              else
+ 143   2              {
+ 144   3                  max_day = 28;
+ 145   3              }
+ 146   2          }
+ 147   1          else if (month == 4 || month == 6 || month == 9 || month == 11) // 小月
+ 148   1          {
+ 149   2              max_day = 30;
+ 150   2          }
+ 151   1          else // 大月
+ 152   1          {
+ 153   2              max_day = 31;
+ 154   2          }
+ 155   1          
+ 156   1          if (date_time[2] > max_day)
+ 157   1          {
+ 158   2              date_time[2] = max_day; // 如果用户设置的日期超过了当月最大天数，就自动调�
+             -�为最大天数
+ 159   2          }
+ 160   1      
+ 161   1          Refresh_Time(); // 刷新显示
+ 162   1      }
+ 163          
+ 164          void Time_Set_Ani()
+ 165          {
+ 166   1          if (mode == 0)
+ 167   1              return; // 只有在设置模式下才执行动画
+ 168   1      
+ 169   1          // 需要有一个显示的动画
+ 170   1          switch (time_setting_index)
+ 171   1          {
+ 172   2          case 0:
+ 173   2              date_ani_flag ? LCD_ShowString(1, 1, "  ") : LCD_ShowNum(1, 1, date_time[0], 2);
+ 174   2              break;
+C51 COMPILER V9.54   MAIN                                                                  02/21/2026 23:38:42 PAGE 4   
+
+ 175   2          case 1:
+ 176   2              date_ani_flag ? LCD_ShowString(1, 4, "  ") : LCD_ShowNum(1, 4, date_time[1], 2);
+ 177   2              break;
+ 178   2          case 2:
+ 179   2              date_ani_flag ? LCD_ShowString(1, 7, "  ") : LCD_ShowNum(1, 7, date_time[2], 2);
+ 180   2              break;
+ 181   2          case 3:
+ 182   2              date_ani_flag ? LCD_ShowString(2, 1, "  ") : LCD_ShowNum(2, 1, date_time[3], 2);
+ 183   2              break;
+ 184   2          case 4:
+ 185   2              date_ani_flag ? LCD_ShowString(2, 4, "  ") : LCD_ShowNum(2, 4, date_time[4], 2);
+ 186   2              break;
+ 187   2          case 5:
+ 188   2              date_ani_flag ? LCD_ShowString(2, 7, "  ") : LCD_ShowNum(2, 7, date_time[5], 2);
+ 189   2              break;
+ 190   2          default:
+ 191   2              break;
+ 192   2          }
+ 193   1      }
+ 194          
+ 195          void main()
+ 196          {
+ 197   1          unsigned char key_value;
+ 198   1          LCD_Init();
+ 199   1          DS1302_Init();
+ 200   1          timer0_init();
+ 201   1      
+ 202   1          LCD_ShowString(1, 3, "-");
+ 203   1          LCD_ShowString(1, 6, "-");
+ 204   1          LCD_ShowString(2, 3, ":");
+ 205   1          LCD_ShowString(2, 6, ":");
+ 206   1      
+ 207   1          DS1302_Set_Time();
+ 208   1      
+ 209   1          while (1)
+ 210   1          {
+ 211   2              key_value = independent_key_scan();
+ 212   2              if (mode == 1)
+ 213   2              {
+ 214   3                  switch (key_value)
+ 215   3                  {            
+ 216   4                      case 1:
+ 217   4                      mode = 0;
+ 218   4                      time_setting_index = 0; // 退出设置模式时重置设置项索引，避免下次进入
+             -设置模式时从上次的设置项开始
+ 219   4                      date_ani_flag = 0; // 退出设置模式时关闭动画
+ 220   4                      DS1302_Set_Time(); // 退出设置模式时把设置的时间写入DS1302
+ 221   4                      break;
+ 222   4                  case 2:
+ 223   4                      Time_Set(0); // 减少时间
+ 224   4                      break;
+ 225   4                  case 3:
+ 226   4                      Time_Set(1); // 增加时间
+ 227   4                      break;
+ 228   4                  case 4:                                                // 切换设置项目
+ 229   4                      time_setting_index = (time_setting_index + 1) % 6; // 循环切换设置项
+ 230   4                      Refresh_Time();                                    // 切换设置项时刷新显示，避
+             -免动画残影
+ 231   4                      break;
+ 232   4                  default:
+ 233   4                      break;
+ 234   4                  }
+C51 COMPILER V9.54   MAIN                                                                  02/21/2026 23:38:42 PAGE 5   
+
+ 235   3              }else{
+ 236   3                  if (key_value == 1) mode = 1; // 进入设置模式
+ 237   3                  Show_Time();
+ 238   3              }
+ 239   2      
+ 240   2              Time_Set_Ani(); // 执行时间设置动画
+ 241   2              LCD_ShowNum(2, 10, date_ani_flag, 1);
+ 242   2          }
+ 243   1      }
+ 244          
+ 245          void timer0_isr(void) interrupt 1
+ 246          {
+ 247   1          static unsigned int t_count = 0;
+ 248   1      
+ 249   1          // 重新装载定时初值
+ 250   1          TL0 = 0xCD; // 设置定时初值
+ 251   1          TH0 = 0xD4; // 设置定时初值
+ 252   1      
+ 253   1          t_count++;
+ 254   1          if (t_count >= 500) // 500ms到达
+ 255   1          {
+ 256   2              t_count = 0;
+ 257   2              if (mode == 1)
+ 258   2              {
+ 259   3                  date_ani_flag = !date_ani_flag; // 切换动画标志
+ 260   3              }
+ 261   2          }
+ 262   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    961    ----
+   CONSTANT SIZE    =      7    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

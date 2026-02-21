@@ -1,0 +1,59 @@
+C51 COMPILER V9.54   MAIN                                                                  01/19/2026 17:30:27 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "delay.h" 
+   3          #include "nixie.h"
+   4          
+   5          
+   6          
+   7          void main(void){
+   8   1        unsigned long counter = 0;
+   9   1        unsigned char display_buf[8] = {0, 0, 0, 0, 0, 0, 0, 0};  // 显示缓冲区
+  10   1        unsigned long temp_num = 0;
+  11   1        unsigned char i = 0;
+  12   1        unsigned int scan_count = 0;
+  13   1        
+  14   1        while(1){
+  15   2          // 每10次扫描更新一次数字（扫描周期固定，更新间隔固定）
+  16   2          if(scan_count >= 10){
+  17   3            scan_count = 0;
+  18   3            counter++;
+  19   3            
+  20   3            // 将数字分解到缓冲区（从右到左，即个位到高位）
+  21   3            temp_num = counter;
+  22   3            for(i = 0; i < 8; i++){
+  23   4              display_buf[i] = temp_num % 10;
+  24   4              temp_num = temp_num / 10;
+  25   4            }
+  26   3          }
+  27   2          
+  28   2          // 固定显示8位，保证扫描时间恒定
+  29   2          for(i = 0; i < 8; i++){
+  30   3            show_pos_num(i+1, display_buf[i]);
+  31   3          }
+  32   2          
+  33   2          scan_count++;
+  34   2        }
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    187    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      19
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

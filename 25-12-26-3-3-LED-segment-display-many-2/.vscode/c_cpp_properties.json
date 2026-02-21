@@ -2,7 +2,9 @@
     "configurations": [
         {
             "name": "Target 1",
-            "includePath": [],
+            "includePath": [
+                "d:\\workspace\\lesson\\C51_lesson\\25-12-26-3-3-LED-segment-display-many-2"
+            ],
             "defines": [
                 "__C51__",
                 "__VSCODE_C51__",

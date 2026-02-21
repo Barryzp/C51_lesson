@@ -1,0 +1,64 @@
+C51 COMPILER V9.54   INDEPENDENT_KEY                                                       02/21/2026 15:42:02 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE INDEPENDENT_KEY
+OBJECT MODULE PLACED IN .\Objects\independent_key.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE independent_key.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\independent_key.lst) TABS(2) OBJECT(.\Objects\independent_key.obj)
+
+line level    source
+
+   1          #include "independent_key.h"
+   2          
+   3          unsigned char independent_key_scan(void)
+   4          {
+   5   1          // Implement key scanning logic here
+   6   1          unsigned char key_value = 0;
+   7   1          if (P3_1 == 0)
+   8   1          {
+   9   2              delay_for_ms(20);
+  10   2              while (P3_1 == 0);
+  11   2              delay_for_ms(20);
+  12   2              key_value = 1; // Key 1 pressed
+  13   2          }
+  14   1      
+  15   1          if (P3_0 == 0)
+  16   1          {
+  17   2              delay_for_ms(20);
+  18   2              while (P3_0 == 0);
+  19   2              delay_for_ms(20);
+  20   2              key_value = 2; // Key 2 pressed
+  21   2          }
+  22   1      
+  23   1          if (P3_2 == 0)
+  24   1          {
+  25   2              delay_for_ms(20);
+  26   2              while (P3_2 == 0);
+  27   2              delay_for_ms(20);
+  28   2              key_value = 3; // Key 3 pressed
+  29   2          }
+  30   1      
+  31   1          if (P3_3 == 0)
+  32   1          {
+  33   2              delay_for_ms(20);
+  34   2              while (P3_3 == 0);
+  35   2              delay_for_ms(20);
+  36   2              key_value = 4; // Key 4 pressed
+  37   2          }
+  38   1      
+  39   1          return key_value; // Return the key value pressed
+  40   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    127    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,81 @@
+C51 COMPILER V9.54   MAIN                                                                  01/22/2026 16:27:04 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "LCD1602.h"
+   3          #include "matrix_keyboard.h"
+   4          
+   5          void main()
+   6          {
+   7   1          unsigned int password = 9527;
+   8   1      
+   9   1          unsigned int input = 0;
+  10   1          unsigned char key = 0;
+  11   1          LCD_Init();
+  12   1          LCD_ShowString(1, 1, "Password: ");
+  13   1          while (1)
+  14   1          {
+  15   2              key = matrix_key_scan();
+  16   2              if (key)
+  17   2              {
+  18   3                  // (input / 1000)==0是为了防止超出四位数还在输入
+  19   3                  if (key <= 10 && (input / 1000)==0)
+  20   3                  {
+  21   4                      input = input * 10;
+  22   4                      // 密码左移，作为首位
+  23   4                      input += key % 10;
+  24   4                  }
+  25   3                  
+  26   3                  LCD_ShowNum(2, 1, input, 4);
+  27   3                  // 判断密码
+  28   3                  if (key == 11)
+  29   3                  {
+  30   4                      if (input == password)
+  31   4                      {
+  32   5                          LCD_ShowString(2, 1, "Correct!");
+  33   5                          delay_for_ms(500);
+  34   5                          input = 0;
+  35   5                          LCD_ShowString(2, 1, "         ");
+  36   5                          LCD_ShowNum(2, 1, input, 4);
+  37   5                      }
+  38   4                      else
+  39   4                      {
+  40   5                          LCD_ShowString(2, 1, "Wrong!");
+  41   5                          delay_for_ms(500);
+  42   5                          input = 0;
+  43   5                          LCD_ShowString(2, 1, "       ");
+  44   5                          LCD_ShowNum(2, 1, input, 4);
+  45   5                      }
+  46   4                  }
+  47   3      
+  48   3                  // 清除
+  49   3                  if (key == 12){
+  50   4                      input = 0;
+  51   4                      LCD_ShowNum(2, 1, input, 4);
+  52   4                  }
+  53   3              }
+  54   2          }
+C51 COMPILER V9.54   MAIN                                                                  01/22/2026 16:27:04 PAGE 2   
+
+  55   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    242    ----
+   CONSTANT SIZE    =     45    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

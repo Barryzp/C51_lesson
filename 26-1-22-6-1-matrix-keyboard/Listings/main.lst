@@ -1,0 +1,54 @@
+C51 COMPILER V9.54   MAIN                                                                  01/22/2026 15:42:24 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\program_files\C51V5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "LCD1602.h"
+   3          #include "matrix_keyboard.h"
+   4          
+   5          void main()
+   6          {
+   7   1          unsigned char key = 0;
+   8   1          LCD_Init();
+   9   1          LCD_ShowString(1, 1, "Hello, World!");
+  10   1          while (1)
+  11   1          {
+  12   2              key = matrix_key_scan();
+  13   2              // 第一种方式
+  14   2              // if (key != 0) {
+  15   2              //     LCD_ShowString(1, 1, "Key Pressed: ");
+  16   2              //     LCD_ShowNum(1, 14, key, 2);
+  17   2              //     // Simple delay to allow user to see the key press（先暂停一下让我们可以看到�
+             -�示）
+  18   2              //     delay_for_ms(1000);
+  19   2              // }else{
+  20   2              //     LCD_ShowString(1, 1, "No Key Pressed.");
+  21   2              // }
+  22   2              // 第二种方式
+  23   2              if (key)
+  24   2              {
+  25   3                  LCD_ShowString(1, 1, "Key Pressed: ");
+  26   3                  LCD_ShowNum(1, 14, key, 2);
+  27   3              }
+  28   2          }
+  29   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     58    ----
+   CONSTANT SIZE    =     28    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

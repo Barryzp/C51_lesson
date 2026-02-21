@@ -1,0 +1,465 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        01/19/2026  17:30:27  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+F:\PROGRAM_FILES\C51V5\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\delay.obj, .\Objects\nixie.obj TO .\Objects\main P
+>> RINT (.\Listings\main.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  .\Objects\delay.obj (DELAY)
+  .\Objects\nixie.obj (NIXIE)
+  F:\PROGRAM_FILES\C51V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  F:\PROGRAM_FILES\C51V5\C51\LIB\C51S.LIB (?C?COPY)
+  F:\PROGRAM_FILES\C51V5\C51\LIB\C51S.LIB (?C?ULDIV)
+  F:\PROGRAM_FILES\C51V5\C51\LIB\C51S.LIB (?C?ULCMP)
+
+
+LINK MAP OF MODULE:  .\Objects\main (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0013H     UNIT         _DATA_GROUP_
+            DATA    001BH     0010H     UNIT         ?DT?_SHOW_NUM_RANGE?NIXIE
+            DATA    002BH     0008H     UNIT         ?DT?_DELAY_FOR_MS?DELAY
+            DATA    0033H     0005H     UNIT         ?DT?_GET_NUMBER_DIGITS?NIXIE
+            IDATA   0038H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     01D5H     UNIT         ?C?LIB_CODE
+            CODE    01D8H     00BBH     UNIT         ?PR?MAIN?MAIN
+            CODE    0293H     008EH     UNIT         ?PR?_SHOW_NUM_RANGE?NIXIE
+            CODE    0321H     0052H     UNIT         ?PR?_GET_NUMBER_DIGITS?NIXIE
+            CODE    0373H     004AH     UNIT         ?PR?_DELAY_FOR_MS?DELAY
+            CODE    03BDH     003DH     UNIT         ?PR?_SHOW_NUM_UNIT?NIXIE
+            CODE    03FAH     0031H     UNIT         ?PR?_CHOOSE_NUM_POS?NIXIE
+            CODE    042BH     0011H     UNIT         ?PR?_SHOW_POS_NUM?NIXIE
+            CODE    043CH     000CH     UNIT         ?C_C51STARTUP
+            CODE    0448H     000AH     UNIT         ?PR?DELAY1MS?DELAY
+            CODE    0452H     0008H     UNIT         ?CO?MAIN
+            CODE    045AH     0007H     UNIT         ?PR?SHOW_LED_1?NIXIE
+            CODE    0461H     0007H     UNIT         ?PR?SHOW_LED_2?NIXIE
+            CODE    0468H     0007H     UNIT         ?PR?SHOW_LED_3?NIXIE
+            CODE    046FH     0007H     UNIT         ?PR?SHOW_LED_4?NIXIE
+            CODE    0476H     0007H     UNIT         ?PR?SHOW_LED_5?NIXIE
+            CODE    047DH     0007H     UNIT         ?PR?SHOW_LED_6?NIXIE
+            CODE    0484H     0007H     UNIT         ?PR?SHOW_LED_7?NIXIE
+            CODE    048BH     0007H     UNIT         ?PR?SHOW_LED_8?NIXIE
+            CODE    0492H     0004H     UNIT         ?PR?NUM0_DISPLAY?NIXIE
+            CODE    0496H     0004H     UNIT         ?PR?NUM1_DISPLAY?NIXIE
+            CODE    049AH     0004H     UNIT         ?PR?NUM2_DISPLAY?NIXIE
+            CODE    049EH     0004H     UNIT         ?PR?NUM3_DISPLAY?NIXIE
+            CODE    04A2H     0004H     UNIT         ?PR?NUM4_DISPLAY?NIXIE
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 2
+
+
+            CODE    04A6H     0004H     UNIT         ?PR?NUM5_DISPLAY?NIXIE
+            CODE    04AAH     0004H     UNIT         ?PR?NUM6_DISPLAY?NIXIE
+            CODE    04AEH     0004H     UNIT         ?PR?NUM7_DISPLAY?NIXIE
+            CODE    04B2H     0004H     UNIT         ?PR?NUM8_DISPLAY?NIXIE
+            CODE    04B6H     0004H     UNIT         ?PR?NUM9_DISPLAY?NIXIE
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\main (MAIN)
+
+
+SEGMENT                                DATA_GROUP 
+  +--> CALLED SEGMENT                START    LENGTH
+----------------------------------------------------
+?C_C51STARTUP                        -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                        0008H    0013H
+  +--> ?CO?MAIN
+  +--> ?PR?_SHOW_POS_NUM?NIXIE
+
+?PR?_SHOW_POS_NUM?NIXIE              -----    -----
+  +--> ?PR?_CHOOSE_NUM_POS?NIXIE
+  +--> ?PR?_SHOW_NUM_UNIT?NIXIE
+  +--> ?PR?DELAY1MS?DELAY
+
+?PR?_CHOOSE_NUM_POS?NIXIE            -----    -----
+  +--> ?PR?SHOW_LED_1?NIXIE
+  +--> ?PR?SHOW_LED_2?NIXIE
+  +--> ?PR?SHOW_LED_3?NIXIE
+  +--> ?PR?SHOW_LED_4?NIXIE
+  +--> ?PR?SHOW_LED_5?NIXIE
+  +--> ?PR?SHOW_LED_6?NIXIE
+  +--> ?PR?SHOW_LED_7?NIXIE
+  +--> ?PR?SHOW_LED_8?NIXIE
+
+?PR?_SHOW_NUM_UNIT?NIXIE             -----    -----
+  +--> ?PR?NUM0_DISPLAY?NIXIE
+  +--> ?PR?NUM1_DISPLAY?NIXIE
+  +--> ?PR?NUM2_DISPLAY?NIXIE
+  +--> ?PR?NUM3_DISPLAY?NIXIE
+  +--> ?PR?NUM4_DISPLAY?NIXIE
+  +--> ?PR?NUM5_DISPLAY?NIXIE
+  +--> ?PR?NUM6_DISPLAY?NIXIE
+  +--> ?PR?NUM7_DISPLAY?NIXIE
+  +--> ?PR?NUM8_DISPLAY?NIXIE
+  +--> ?PR?NUM9_DISPLAY?NIXIE
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\main (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 3
+
+
+  C:01D8H         PUBLIC        main
+  C:0452H         SYMBOL        _?ix1000
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        counter
+  D:000CH         SYMBOL        display_buf
+  D:0014H         SYMBOL        temp_num
+  D:0018H         SYMBOL        i
+  D:0019H         SYMBOL        scan_count
+  -------         ENDDO         
+  C:01D8H         LINE#         7
+  C:01D8H         LINE#         8
+  C:01E1H         LINE#         9
+  C:01F2H         LINE#         10
+  C:01FBH         LINE#         11
+  C:01FDH         LINE#         12
+  C:0201H         LINE#         14
+  C:0201H         LINE#         16
+  C:020CH         LINE#         17
+  C:0211H         LINE#         18
+  C:0226H         LINE#         21
+  C:0231H         LINE#         22
+  C:0234H         LINE#         23
+  C:024EH         LINE#         24
+  C:0267H         LINE#         25
+  C:026EH         LINE#         26
+  C:026EH         LINE#         29
+  C:0271H         LINE#         30
+  C:027FH         LINE#         31
+  C:0288H         LINE#         33
+  C:0290H         LINE#         34
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0448H         PUBLIC        delay1ms
+  C:0373H         PUBLIC        _delay_for_ms
+  -------         PROC          DELAY1MS
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0448H         LINE#         3
+  C:0448H         LINE#         4
+  C:0448H         LINE#         6
+  C:0449H         LINE#         7
+  C:044BH         LINE#         8
+  C:044DH         LINE#         10
+  C:044DH         LINE#         11
+  C:044FH         LINE#         12
+  C:0451H         LINE#         13
+  -------         ENDPROC       DELAY1MS
+  -------         PROC          _DELAY_FOR_MS
+  D:002BH         SYMBOL        ms
+  -------         DO            
+  D:002FH         SYMBOL        i
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 4
+
+
+  -------         ENDDO         
+  C:0373H         LINE#         15
+  C:037BH         LINE#         16
+  C:0384H         LINE#         17
+  C:03A2H         LINE#         18
+  C:03A5H         LINE#         19
+  C:03BCH         LINE#         20
+  -------         ENDPROC       _DELAY_FOR_MS
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        NIXIE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  B:00A0H.2       PUBLIC        P2_2
+  B:00A0H.3       PUBLIC        P2_3
+  B:00A0H.4       PUBLIC        P2_4
+  C:0321H         PUBLIC        _get_number_digits
+  C:03BDH         PUBLIC        _show_num_unit
+  C:042BH         PUBLIC        _show_pos_num
+  C:0492H         PUBLIC        num0_display
+  C:0496H         PUBLIC        num1_display
+  C:049AH         PUBLIC        num2_display
+  C:049EH         PUBLIC        num3_display
+  C:04A2H         PUBLIC        num4_display
+  C:04A6H         PUBLIC        num5_display
+  C:04AAH         PUBLIC        num6_display
+  C:04AEH         PUBLIC        num7_display
+  C:04B2H         PUBLIC        num8_display
+  C:0293H         PUBLIC        _show_num_range
+  C:04B6H         PUBLIC        num9_display
+  C:03FAH         PUBLIC        _choose_num_pos
+  C:045AH         PUBLIC        show_led_1
+  C:0461H         PUBLIC        show_led_2
+  C:0468H         PUBLIC        show_led_3
+  C:046FH         PUBLIC        show_led_4
+  C:0476H         PUBLIC        show_led_5
+  C:047DH         PUBLIC        show_led_6
+  C:0484H         PUBLIC        show_led_7
+  C:048BH         PUBLIC        show_led_8
+  -------         PROC          NUM0_DISPLAY
+  C:0492H         LINE#         3
+  C:0492H         LINE#         5
+  C:0495H         LINE#         6
+  -------         ENDPROC       NUM0_DISPLAY
+  -------         PROC          NUM1_DISPLAY
+  C:0496H         LINE#         8
+  C:0496H         LINE#         10
+  C:0499H         LINE#         11
+  -------         ENDPROC       NUM1_DISPLAY
+  -------         PROC          NUM2_DISPLAY
+  C:049AH         LINE#         13
+  C:049AH         LINE#         15
+  C:049DH         LINE#         16
+  -------         ENDPROC       NUM2_DISPLAY
+  -------         PROC          NUM3_DISPLAY
+  C:049EH         LINE#         18
+  C:049EH         LINE#         20
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 5
+
+
+  C:04A1H         LINE#         21
+  -------         ENDPROC       NUM3_DISPLAY
+  -------         PROC          NUM4_DISPLAY
+  C:04A2H         LINE#         23
+  C:04A2H         LINE#         25
+  C:04A5H         LINE#         26
+  -------         ENDPROC       NUM4_DISPLAY
+  -------         PROC          NUM5_DISPLAY
+  C:04A6H         LINE#         28
+  C:04A6H         LINE#         30
+  C:04A9H         LINE#         31
+  -------         ENDPROC       NUM5_DISPLAY
+  -------         PROC          NUM6_DISPLAY
+  C:04AAH         LINE#         33
+  C:04AAH         LINE#         35
+  C:04ADH         LINE#         36
+  -------         ENDPROC       NUM6_DISPLAY
+  -------         PROC          NUM7_DISPLAY
+  C:04AEH         LINE#         38
+  C:04AEH         LINE#         40
+  C:04B1H         LINE#         41
+  -------         ENDPROC       NUM7_DISPLAY
+  -------         PROC          NUM8_DISPLAY
+  C:04B2H         LINE#         43
+  C:04B2H         LINE#         45
+  C:04B5H         LINE#         46
+  -------         ENDPROC       NUM8_DISPLAY
+  -------         PROC          NUM9_DISPLAY
+  C:04B6H         LINE#         48
+  C:04B6H         LINE#         50
+  C:04B9H         LINE#         51
+  -------         ENDPROC       NUM9_DISPLAY
+  -------         PROC          _SHOW_NUM_UNIT
+  D:0007H         SYMBOL        num
+  C:03BDH         LINE#         53
+  C:03BDH         LINE#         54
+  C:03C0H         LINE#         55
+  C:03C3H         LINE#         56
+  C:03C6H         LINE#         57
+  C:03C9H         LINE#         58
+  C:03CCH         LINE#         59
+  C:03CFH         LINE#         60
+  C:03D2H         LINE#         61
+  C:03D5H         LINE#         62
+  C:03D8H         LINE#         63
+  C:03DBH         LINE#         64
+  C:03DEH         LINE#         65
+  C:03E1H         LINE#         66
+  C:03E4H         LINE#         67
+  C:03E7H         LINE#         68
+  C:03EAH         LINE#         69
+  C:03EDH         LINE#         70
+  C:03F0H         LINE#         71
+  C:03F3H         LINE#         72
+  C:03F6H         LINE#         73
+  C:03F9H         LINE#         74
+  C:03F9H         LINE#         75
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 6
+
+
+  -------         ENDPROC       _SHOW_NUM_UNIT
+  -------         PROC          SHOW_LED_1
+  C:045AH         LINE#         77
+  C:045AH         LINE#         78
+  C:045CH         LINE#         79
+  C:045EH         LINE#         80
+  C:0460H         LINE#         81
+  -------         ENDPROC       SHOW_LED_1
+  -------         PROC          SHOW_LED_2
+  C:0461H         LINE#         83
+  C:0461H         LINE#         84
+  C:0463H         LINE#         85
+  C:0465H         LINE#         86
+  C:0467H         LINE#         87
+  -------         ENDPROC       SHOW_LED_2
+  -------         PROC          SHOW_LED_3
+  C:0468H         LINE#         89
+  C:0468H         LINE#         90
+  C:046AH         LINE#         91
+  C:046CH         LINE#         92
+  C:046EH         LINE#         93
+  -------         ENDPROC       SHOW_LED_3
+  -------         PROC          SHOW_LED_4
+  C:046FH         LINE#         95
+  C:046FH         LINE#         96
+  C:0471H         LINE#         97
+  C:0473H         LINE#         98
+  C:0475H         LINE#         99
+  -------         ENDPROC       SHOW_LED_4
+  -------         PROC          SHOW_LED_5
+  C:0476H         LINE#         101
+  C:0476H         LINE#         102
+  C:0478H         LINE#         103
+  C:047AH         LINE#         104
+  C:047CH         LINE#         105
+  -------         ENDPROC       SHOW_LED_5
+  -------         PROC          SHOW_LED_6
+  C:047DH         LINE#         107
+  C:047DH         LINE#         108
+  C:047FH         LINE#         109
+  C:0481H         LINE#         110
+  C:0483H         LINE#         111
+  -------         ENDPROC       SHOW_LED_6
+  -------         PROC          SHOW_LED_7
+  C:0484H         LINE#         112
+  C:0484H         LINE#         113
+  C:0486H         LINE#         114
+  C:0488H         LINE#         115
+  C:048AH         LINE#         116
+  -------         ENDPROC       SHOW_LED_7
+  -------         PROC          SHOW_LED_8
+  C:048BH         LINE#         118
+  C:048BH         LINE#         119
+  C:048DH         LINE#         120
+  C:048FH         LINE#         121
+  C:0491H         LINE#         122
+  -------         ENDPROC       SHOW_LED_8
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 7
+
+
+  -------         PROC          _CHOOSE_NUM_POS
+  D:0007H         SYMBOL        pos
+  C:03FAH         LINE#         124
+  C:03FAH         LINE#         125
+  C:03FDH         LINE#         126
+  C:0400H         LINE#         127
+  C:0403H         LINE#         128
+  C:0406H         LINE#         129
+  C:0409H         LINE#         130
+  C:040CH         LINE#         131
+  C:040FH         LINE#         132
+  C:0412H         LINE#         133
+  C:0415H         LINE#         134
+  C:0418H         LINE#         135
+  C:041BH         LINE#         136
+  C:041EH         LINE#         137
+  C:0421H         LINE#         138
+  C:0424H         LINE#         139
+  C:0427H         LINE#         140
+  C:042AH         LINE#         141
+  C:042AH         LINE#         142
+  -------         ENDPROC       _CHOOSE_NUM_POS
+  -------         PROC          _SHOW_POS_NUM
+  D:0007H         SYMBOL        pos
+  D:0006H         SYMBOL        num
+  C:042BH         LINE#         144
+  C:042DH         LINE#         145
+  C:0430H         LINE#         146
+  C:0435H         LINE#         147
+  C:0438H         LINE#         149
+  C:043BH         LINE#         150
+  -------         ENDPROC       _SHOW_POS_NUM
+  -------         PROC          _GET_NUMBER_DIGITS
+  D:0033H         SYMBOL        number
+  -------         DO            
+  D:0037H         SYMBOL        count
+  -------         ENDDO         
+  C:0321H         LINE#         152
+  C:0329H         LINE#         153
+  C:032CH         LINE#         154
+  C:0340H         LINE#         156
+  C:0353H         LINE#         157
+  C:036CH         LINE#         158
+  C:036EH         LINE#         159
+  C:0370H         LINE#         160
+  C:0372H         LINE#         161
+  -------         ENDPROC       _GET_NUMBER_DIGITS
+  -------         PROC          _SHOW_NUM_RANGE
+  D:001BH         SYMBOL        number
+  -------         DO            
+  D:001FH         SYMBOL        digit_num
+  D:0020H         SYMBOL        integer
+  D:0024H         SYMBOL        number_temp
+  D:0028H         SYMBOL        remainder
+  D:0029H         SYMBOL        i
+  D:002AH         SYMBOL        j
+  -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22                                                      01/19/2026  17:30:27  PAGE 8
+
+
+  C:0293H         LINE#         163
+  C:029BH         LINE#         165
+  C:02A0H         LINE#         166
+  C:02A9H         LINE#         167
+  C:02B1H         LINE#         168
+  C:02B3H         LINE#         169
+  C:02B5H         LINE#         170
+  C:02B7H         LINE#         172
+  C:02BBH         LINE#         175
+  C:02BEH         LINE#         176
+  C:02CAH         LINE#         177
+  C:02D4H         LINE#         178
+  C:02E9H         LINE#         179
+  C:0302H         LINE#         180
+  C:030AH         LINE#         181
+  C:0313H         LINE#         182
+  C:0317H         LINE#         183
+  C:0320H         LINE#         184
+  -------         ENDPROC       _SHOW_NUM_RANGE
+  -------         ENDMOD        NIXIE
+
+  -------         MODULE        ?C?COPY
+  C:00D3H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+  -------         MODULE        ?C?ULDIV
+  C:0135H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?ULCMP
+  C:01C7H         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_FOR_MS?DELAY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SHOW_NUM_RANGE?NIXIE
+
+Program Size: data=57.0 xdata=0 code=1210
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
